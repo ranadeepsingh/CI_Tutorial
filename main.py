@@ -1,5 +1,6 @@
 import pandas as pd
 import time
+import random
 
 def hello_world():
     '''
@@ -20,15 +21,15 @@ def train_model():
     '''
     start_time = time.time()
     print("Training model...")
-    time.sleep(5)
+    time.sleep(random.randint(1,5)) # Simulate training time
     print("Model trained!")
 
     end_time = time.time()
 
-    return end_time - start_time
+    return round((end_time - start_time),3)
 
 if __name__ == '__main__':
 
     print(hello_world())
-    train_model()
+    print(f"Model Train time: {train_model()} s")
     print(recommend(5))

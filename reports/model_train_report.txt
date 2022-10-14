@@ -1,0 +1,5 @@
+Hello World
+Training model...
+Model trained!
+Model Train time: 4.011 s
+On the Waterfront (1954),Aliens (1986),One Flew Over the Cuckoo's Nest (1975),Roman Holiday (1953),Inception (2010)
