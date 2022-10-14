@@ -1,8 +1,8 @@
-name: CI Pytest and Model Training and Evaluation run every 1 hour
+name: CI Pytest and Model Training and Evaluation run every 2 hours
 
 on:
   schedule: 
-    - cron: '* */24 * * *'
+    - cron: '* */2 * * *'
   
 jobs:
   test_model_training_evaluation:
