@@ -1,0 +1,60 @@
+name: CI Pytest and Model Evaluation run every 1 hour
+
+on:
+  schedule: 
+    - cron: '* */24 * * *'
+  
+jobs:
+  test_model_training_evaluation:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with: 
+          python-version: "3.10"
+      # - name: Install pipenv
+      #   run: |
+      #     python -m pip install --upgrade pipenv wheel
+      - name: Install Packages
+        run: |
+          pip install -r requirements.txt
+      # - name: Upgrade Numpy to fix Numpy Error
+      #   run: |
+      #     pip install --upgrade numpy
+      - name: Run Pytest
+        run: |
+          coverage run -m pytest | tee reports/unittest_report.txt
+      - name: Coverage Report
+        run: |
+          coverage report -m | tee reports/coverage_report.txt
+      - name: Train SVD model
+        run: |
+          python main.py | tee reports/model_train_report.txt
+      # - name: Offline Evaluation of model
+      #   run: |
+      #     python offline_eval.py | tee reports/offline_evaluation_report.txt
+      - name: Save UnitTest Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: unittest_report.txt
+          path: reports/unittest_report.txt
+          retention-days: 2
+      - name: Save Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage_report.txt
+          path: reports/coverage_report.txt
+          retention-days: 2
+      - name: Save Model Training Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: model_train_report.txt
+          path: reports/model_train_report.txt
+          retention-days: 2
+      # - name: Save Model Offline Evaluation Report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: offline_evaluation_report.txt
+      #     path: reports/offline_evaluation_report.txt
+      #     retention-days: 2
