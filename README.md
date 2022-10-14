@@ -1,13 +1,13 @@
-## Continuous Integration Tutorial with Github Actions
+# Continuous Integration Tutorial with Github Actions
 
-#### Setup:
+## Setup:
 ```bash
 git clone https://github.com/ranadeepsingh/CI_Tutorial.git
 
 python -m pip install -r requirements.txt
 ```
 
-#### Run PyTest:
+## Run PyTest:
 
 ```bash
 coverage run -m pytest 
@@ -21,4 +21,20 @@ coverage report -m | tee reports/coverage_report.txt
 coverage html
 ```
 
+## Model Training and Evaluation
+```bash
+python main.py | tee reports/model_train_report.txt
+
+python offline_eval.py | tee reports/offline_evaluation_report.txt
+```
+
+## Continuous Integration with Github Actions
+
+See the .github/workflows
+Any yml file there is an automated testing workflow.
+Output can be seen in Repository's "Actions" Tab
+
+Files:
+* push_ci.yml - Runs PyTest and integration test on every push and pull request
+* test_model.yml - Run model trainign and evaluation every n hours or days as specified by Cron job. See Cron time format [here](https://www.pair.com/support/kb/paircloud-using-cron/).
 
