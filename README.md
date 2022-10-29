@@ -8,13 +8,9 @@ python -m pip install -r requirements.txt
 ```
 
 ## Run PyTest:
+main.py - It has the code that needs to be tested \
+test_main.py - has the tests for the code
 
-```bash
-coverage run -m pytest 
-coverage report -m 
-```
-
-To Save and See Reports:
 ```bash
 coverage run -m pytest | tee reports/unittest_report.txt
 coverage report -m | tee reports/coverage_report.txt

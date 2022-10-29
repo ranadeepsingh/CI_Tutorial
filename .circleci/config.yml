@@ -1,0 +1,33 @@
+name: CI Tutorial
+
+on: [push, pull_request]
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with: 
+          python-version: "3.10"
+      - name: Install Packages
+        run: |
+          pip install -r requirements.txt
+      - name: Run Pytest
+        run: |
+          coverage run -m pytest | tee reports/unittest_report.txt
+      - name: Coverage Report
+        run: |
+          coverage report -m | tee reports/coverage_report.txt
+      - name: Save UnitTest Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: unittest_report.txt
+          path: reports//unittest_report.txt
+          retention-days: 10
+      - name: Save Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage_report.txt
+          path: reports/coverage_report.txt
+          retention-days: 10
